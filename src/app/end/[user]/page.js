@@ -2,7 +2,7 @@ import { prisma } from "@/db";
 import Link from "next/link";
 import "./styles.scss";
 
-export async function getUsers(id) {
+async function getUsers(id) {
   "use server";
 
   const user = await prisma.user.findFirst({
@@ -14,12 +14,39 @@ export async function getUsers(id) {
   return user;
 }
 
+async function updateHighscore(id, score) {
+  "use server";
+
+  const isAlreadyCreated = await prisma.user.findFirst({
+    where: {
+      id: id,
+    },
+  });
+
+  if (!isAlreadyCreated) {
+    throw new Error(
+      "User doesn't exist in the database. Try relogging in case your session has expired."
+    );
+  } else {
+    await prisma.user.update({
+      where: {
+        id: id,
+      },
+      data: {
+        highscore: score,
+      },
+    });
+  }
+}
+
 export default async function Page({ params }) {
   const { user: userAndScore } = params;
 
   const [user, score] = userAndScore.split("%26%3D");
 
   const userObject = await getUsers(user);
+
+  if (userObject.highscore < score) updateHighscore(user, Number(score));
 
   return (
     <section className="end">

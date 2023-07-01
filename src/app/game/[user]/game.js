@@ -1,6 +1,6 @@
 "use client";
 import { useState, useRef, useMemo, useEffect } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import "./styles.scss";
 
 export const Game = ({
@@ -29,7 +29,6 @@ export const Game = ({
   const newSegments = useRef(0);
 
   const router = useRouter();
-  const pathname = usePathname();
 
   const initialBoard = useMemo(() => {
     const singleLayer = Array.from({ length: width }, () => "tile");
@@ -133,13 +132,13 @@ export const Game = ({
       setIsOver(true);
     if (snake[0].x === food.x && snake[0].y === food.y) {
       newSegments.current += growth ? 7 : 2;
-      setScore((p) => (growth ? p + 7 : p + 2));
+      setScore((p) => (growth ? p + 7 * speed : p + 2 * speed));
     }
   }, [snake, food]);
 
   useEffect(() => {
     if (isOver) router.push(`../end/${id + "&=" + score}`);
-  }, [isOver]);
+  }, [isOver, score]);
 
   return (
     <code ref={boardRef} key="board">
