@@ -21,6 +21,8 @@ async function updateUser(data) {
 
   const speed = Number(data.get("speed")?.valueOf());
   const fastGrower = Boolean(data.get("fastGrower")?.valueOf());
+  const width = Number(data.get("width")?.valueOf());
+  const height = Number(data.get("height")?.valueOf());
   const mode = Boolean(data.get("mode")?.valueOf());
 
   const isAlreadyCreated = await prisma.user.findFirst({
@@ -42,6 +44,8 @@ async function updateUser(data) {
         speed: speed,
         fastGrower: fastGrower,
         dark: mode,
+        height: height,
+        width: width,
       },
     });
     redirect(`/start/${isAlreadyCreated.id}`);
@@ -54,7 +58,7 @@ export default async function Page({ params }) {
   const userObject = await getUsers(user);
 
   return (
-    <section>
+    <section className="menu">
       <h2>Menu</h2>
       <form name={user} action={updateUser} method="POST">
         <div>
@@ -81,7 +85,7 @@ export default async function Page({ params }) {
                 type="radio"
                 id="speed2"
                 name="speed"
-                value="2"
+                value="4"
                 defaultChecked={userObject.speed === 4}
               />
               <label for="speed2">Normal</label>
@@ -91,7 +95,7 @@ export default async function Page({ params }) {
                 type="radio"
                 id="speed3"
                 name="speed"
-                value="4"
+                value="7"
                 defaultChecked={userObject.speed === 7}
               />
               <label for="speed3">Fast</label>
@@ -101,8 +105,8 @@ export default async function Page({ params }) {
                 type="radio"
                 id="speed4"
                 name="speed"
-                value="6"
-                defaultChecked={userObject.speed === 8}
+                value="9"
+                defaultChecked={userObject.speed === 9}
               />
               <label for="speed3">Faster</label>
             </div>
@@ -128,6 +132,36 @@ export default async function Page({ params }) {
               defaultChecked={userObject.fastGrower}
             />
             <label for="growthRate">Fast grower?</label>
+          </div>
+        </div>
+
+        <div>
+          <p>Size:</p>
+          <div>
+            <div>
+              <label for="width">Width</label>
+              <input
+                type="number"
+                id="width"
+                name="width"
+                defaultValue={userObject.width}
+                min={10}
+                max={50}
+                style={{ textAlign: "center" }}
+              />
+            </div>
+            <div>
+              <label for="height">Height</label>
+              <input
+                type="number"
+                id="height"
+                name="height"
+                defaultValue={userObject.height}
+                min={10}
+                max={50}
+                style={{ textAlign: "center" }}
+              />
+            </div>
           </div>
         </div>
 

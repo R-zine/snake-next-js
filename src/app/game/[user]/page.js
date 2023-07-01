@@ -26,6 +26,8 @@ export default async function Page({ params }) {
         speed={userObject.speed}
         growth={userObject.fastGrower}
         highscore={userObject.highscore}
+        width={userObject.width}
+        height={userObject.height}
       />
     </section>
   );

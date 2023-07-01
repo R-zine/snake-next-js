@@ -3,10 +3,15 @@ import { useState, useRef, useMemo, useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import "./styles.scss";
 
-const height = 30;
-const width = 30;
-
-export const Game = ({ id, title, speed, growth, highscore }) => {
+export const Game = ({
+  id,
+  title,
+  speed,
+  growth,
+  highscore,
+  width,
+  height,
+}) => {
   const [snake, setSnake] = useState([
     { x: width - 9, y: height - 9 },
     { x: width - 9, y: height - 8 },
