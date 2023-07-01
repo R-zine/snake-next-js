@@ -1,10 +1,11 @@
 section {
   background-color: #638c26;
+  box-shadow: 0 0 10px #9f86c0;
   color: #eff7ff;
   text-shadow: 0px 0px 6px #82204a;
-  width: 40vw;
-  height: 60vh;
-  border-radius: 2%;
+  width: 85vw;
+  height: 85vh;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -40,21 +41,8 @@ section {
           gap: 0.5vh;
         }
       }
-
-      & > .checkbox {
-        display: flex;
-        gap: 1vh;
-      }
     }
   }
-}
-
-li {
-  border: 2px solid black;
-  list-style-type: none;
-  margin: 3px;
-  width: 2vh;
-  height: 2vh;
 }
 
 .board {
@@ -67,8 +55,8 @@ li {
   display: flex;
   margin: 1px 0;
   & > div {
-    width: 2vh;
-    height: 2vh;
+    width: calc(6vmin / var(--size));
+    height: calc(6vmin / var(--size));
     margin: 0 1px;
   }
 }

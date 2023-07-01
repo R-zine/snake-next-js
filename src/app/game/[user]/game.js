@@ -13,10 +13,10 @@ export const Game = ({
   height,
 }) => {
   const [snake, setSnake] = useState([
-    { x: width - 9, y: height - 9 },
-    { x: width - 9, y: height - 8 },
-    { x: width - 9, y: height - 7 },
-    { x: width - 9, y: height - 6 },
+    { x: width - 9, y: height - 4 },
+    { x: width - 9, y: height - 3 },
+    { x: width - 9, y: height - 2 },
+    { x: width - 9, y: height - 1 },
   ]);
   const [isReady, setIsReady] = useState(false);
   const [isOver, setIsOver] = useState(false);
@@ -141,7 +141,11 @@ export const Game = ({
   }, [isOver, score]);
 
   return (
-    <code ref={boardRef} key="board">
+    <code
+      ref={boardRef}
+      key="board"
+      style={{ "--size": width > height ? width / 11 : height / 11 }}
+    >
       {initialBoard.map((r, i) => (
         <div className="row" key={i}>
           {r.map((t, j) => (

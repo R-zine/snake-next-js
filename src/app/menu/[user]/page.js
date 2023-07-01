@@ -23,7 +23,6 @@ async function updateUser(data) {
   const fastGrower = Boolean(data.get("fastGrower")?.valueOf());
   const width = Number(data.get("width")?.valueOf());
   const height = Number(data.get("height")?.valueOf());
-  const mode = Boolean(data.get("mode")?.valueOf());
 
   const isAlreadyCreated = await prisma.user.findFirst({
     where: {
@@ -43,17 +42,18 @@ async function updateUser(data) {
       data: {
         speed: speed,
         fastGrower: fastGrower,
-        dark: mode,
         height: height,
         width: width,
       },
     });
-    redirect(`/start/${isAlreadyCreated.id}`);
+    redirect(`/start/${isAlreadyCreated.id}&=${Math.random() * 10}`);
   }
 }
 
 export default async function Page({ params }) {
-  const { user } = params;
+  const { user: userAndToken } = params;
+
+  const [user, _token] = userAndToken.split("%26%3D");
 
   const userObject = await getUsers(user);
 
@@ -161,32 +161,6 @@ export default async function Page({ params }) {
                 max={50}
                 style={{ textAlign: "center" }}
               />
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <p>Mode:</p>
-          <div>
-            <div>
-              <input
-                type="radio"
-                id="light"
-                name="mode"
-                value="false"
-                defaultChecked={!userObject.dark}
-              />
-              <label for="light">Light</label>
-            </div>
-            <div>
-              <input
-                type="radio"
-                id="dark"
-                name="mode"
-                value="true"
-                defaultChecked={userObject.dark}
-              />
-              <label for="dark">Dark</label>
             </div>
           </div>
         </div>

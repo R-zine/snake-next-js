@@ -18,5 +18,4 @@ model User {
   fastGrower Boolean
   width Int @default(30)
   height Int @default(30)
-  dark Boolean
 }

@@ -61,13 +61,13 @@ export default async function Page({ params }) {
       </div>
 
       <div>
-        <Link className="link" href={`/game/${user}`}>
+        <Link className="link" href={`/game/${user}&=${Math.random() * 10}`}>
           <div>
             <h3>Press the Space key or click here to start a new game.</h3>
           </div>
         </Link>
 
-        <Link className="link" href={`/menu/${user}`}>
+        <Link className="link" href={`/menu/${user}&=${Math.random() * 10}`}>
           <div>
             <h3>Press M or click here to enter the Menu.</h3>
           </div>

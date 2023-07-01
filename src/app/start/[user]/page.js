@@ -15,21 +15,23 @@ export async function getUsers(id) {
 }
 
 export default async function Page({ params }) {
-  const { user } = params;
+  const { user: userAndToken } = params;
+
+  const [user, _token] = userAndToken.split("%26%3D");
 
   const userObject = await getUsers(user);
 
   return (
-    <section>
+    <section className="start">
       <h2>Hello {userObject.title}!</h2>
       <div>
-        <Link className="link" href={`/game/${user}`}>
+        <Link className="link" href={`/game/${user}&=${Math.random() * 10}`}>
           <div>
             <h3>Press the Space key or click here to start a new game.</h3>
           </div>
         </Link>
 
-        <Link className="link" href={`/menu/${user}`}>
+        <Link className="link" href={`/menu/${user}&=${Math.random() * 10}`}>
           <div>
             <h3>Press M or click here to enter the Menu.</h3>
           </div>

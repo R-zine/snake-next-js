@@ -14,7 +14,9 @@ export async function getUsers(id) {
 }
 
 export default async function Page({ params }) {
-  const { user } = params;
+  const { user: userAndToken } = params;
+
+  const [user, _token] = userAndToken.split("%26%3D");
 
   const userObject = await getUsers(user);
 
