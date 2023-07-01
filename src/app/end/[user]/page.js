@@ -15,13 +15,24 @@ export async function getUsers(id) {
 }
 
 export default async function Page({ params }) {
-  const { user } = params;
+  const { user: userAndScore } = params;
+
+  const [user, score] = userAndScore.split("%26%3D");
 
   const userObject = await getUsers(user);
 
   return (
     <section>
-      <h2>Hello {userObject.title}!</h2>
+      <h2>Game Over!</h2>
+      <div>
+        <h3>Your score was: {score}</h3>
+        {userObject.highscore >= score ? (
+          <h3>Your current highscore: {userObject.highscore}</h3>
+        ) : (
+          "NEW HIGHSCORE!"
+        )}
+      </div>
+
       <div>
         <Link className="link" href={`/game/${user}`}>
           <div>
@@ -35,7 +46,6 @@ export default async function Page({ params }) {
           </div>
         </Link>
       </div>
-      <h3>Your current highscore: {userObject.highscore}</h3>
     </section>
   );
 }
