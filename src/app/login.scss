@@ -5,7 +5,7 @@ section {
   box-shadow: 0 0 20px #9f86c0;
   border: 5px solid #eff7ff;
   outline: 3px solid #638c26;
-  width: 30vw;
+  width: 60vw;
   height: 40vh;
   border-radius: 2%;
   display: flex;
@@ -23,6 +23,7 @@ section {
     gap: 1vh;
     justify-content: center;
     align-items: center;
+    text-align: center;
   }
 }
 
@@ -31,7 +32,7 @@ section {
 
   & input {
     height: 3vh;
-    width: 10vw;
+    width: 10vmax;
     background-color: #231123;
     color: #eff7ff;
     text-indent: 10px;

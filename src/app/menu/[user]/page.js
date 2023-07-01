@@ -69,7 +69,7 @@ export default async function Page({ params }) {
             name="user"
             value={user}
           />
-          <div>
+          <div className="speed">
             <div>
               <input
                 type="radio"
