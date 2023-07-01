@@ -21,6 +21,8 @@ export const Game = ({
   const [isReady, setIsReady] = useState(false);
   const [isOver, setIsOver] = useState(false);
   const [score, setScore] = useState(0);
+  const [foodHelper, setFoodHelper] = useState(0);
+  const [isWon, setIsWon] = useState(false);
 
   const boardRef = useRef(null);
 
@@ -37,7 +39,7 @@ export const Game = ({
 
   const assignTile = (i, j) => {
     if (snake.some((seg) => seg.x === j && seg.y === i)) return "snake";
-    if (isReady && food.x === j && food.y === i) return "apple";
+    if (isReady && food?.x === j && food?.y === i) return "apple";
     else return "tile";
   };
 
@@ -48,18 +50,23 @@ export const Game = ({
     });
 
     const tryFood = () => {
-      const attempt = spawnRandom();
-      if (snake.some((seg) => seg.x === attempt.x && seg.y === attempt.y))
-        tryFood();
-      else return attempt;
+      try {
+        const attempt = spawnRandom();
+        if (snake.some((seg) => seg.x === attempt.x && seg.y === attempt.y))
+          tryFood();
+        else return attempt;
+      } catch {
+        setIsWon(true);
+      }
     };
 
     return tryFood();
-  }, [score]);
+  }, [score, foodHelper]);
 
   useEffect(() => {
     if (food?.x) setIsReady(true);
-  }, [food]);
+    if (!food && !isWon) setFoodHelper((p) => p + 1);
+  }, [food, foodHelper, isWon]);
 
   useEffect(() => {
     const tick = setInterval(() => {
@@ -116,29 +123,32 @@ export const Game = ({
   }, []);
 
   useEffect(() => {
+    if (snake.length === width * height) setIsWon(true);
     if (
       snake[0].x < 0 ||
       snake[0].x > width - 1 ||
       snake[0].y < 0 ||
-      snake[0].y > height - 1
+      (snake[0].y > height - 1 && !isWon)
     )
       setIsOver(true);
     if (
       snake.some((seg, i) => {
         if (i === 0) return false;
         else return seg.x === snake[0].x && seg.y === snake[0].y;
-      })
+      }) &&
+      !isWon
     )
       setIsOver(true);
-    if (snake[0].x === food.x && snake[0].y === food.y) {
+    if (snake[0].x === food?.x && snake[0].y === food?.y) {
       newSegments.current += growth ? 7 : 2;
       setScore((p) => (growth ? p + 7 * speed : p + 2 * speed));
     }
-  }, [snake, food]);
+  }, [snake, food, isWon]);
 
   useEffect(() => {
-    if (isOver) router.push(`../end/${id + "&=" + score}`);
-  }, [isOver, score]);
+    if (isOver && !isWon) router.push(`../end/${id + "&=" + score}`);
+    if (isWon) router.push(`../win/${id + "&=" + score}`);
+  }, [isOver, score, isWon]);
 
   return (
     <code

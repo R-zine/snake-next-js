@@ -49,8 +49,12 @@ export default async function Page({ params }) {
   if (userObject.highscore < score) updateHighscore(user, Number(score));
 
   return (
-    <section className="end">
-      <h2>Game Over!</h2>
+    <section className="win">
+      <div>
+        <h2>CONGRATULATIONS, {userObject.title}!</h2>
+        <h2>You won!!!</h2>
+      </div>
+
       <div>
         <h3>Your score was: {score}</h3>
         {userObject.highscore >= score ? (
