@@ -10,7 +10,7 @@ section {
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
   gap: 2vh;
   padding: 3vh;
@@ -48,6 +48,7 @@ section {
 }
 
 .board {
+  align-self: center;
   display: flex;
   flex-direction: column;
   border: 2px solid #231123;
@@ -57,8 +58,8 @@ section {
   display: flex;
   margin: 1px 0;
   & > div {
-    width: calc(6vmin / var(--size));
-    height: calc(6vmin / var(--size));
+    width: calc(4.5vmin / var(--size));
+    height: calc(4.5vmin / var(--size));
     margin: 0 1px;
     outline: 1px solid #9f86c0;
   }
@@ -74,4 +75,72 @@ section {
 
 .apple {
   background-color: #82204a;
+}
+
+.top,
+.bottom,
+.left,
+.right {
+  border: 2px solid #82204a;
+  background-color: #eff7ff;
+  border-radius: 5px;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #9f86c0;
+    cursor: pointer;
+  }
+}
+
+.top,
+.bottom {
+  min-width: 70vmin;
+  height: 5vmin;
+}
+
+.left,
+.right {
+  width: 5vmin;
+  height: 70vmin;
+}
+
+.active {
+  background-color: #9f86c0;
+}
+
+.top {
+  top: 10vh;
+  left: calc(50vw - 35vmin);
+  & > svg {
+    transform: rotate(-90deg) scale(140%);
+  }
+}
+
+.bottom {
+  top: 87vh;
+  left: calc(50vw - 35vmin);
+  & > svg {
+    transform: rotate(90deg) scale(140%);
+  }
+}
+
+.left {
+  top: calc(50vh - 35vmin);
+  left: 9vw;
+  & > svg {
+    transform: rotate(180deg) scale(140%);
+  }
+}
+
+.right {
+  top: calc(50vh - 35vmin);
+  left: 86vw;
+
+  & > svg {
+    transform: scale(140%);
+  }
 }

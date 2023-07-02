@@ -43,6 +43,17 @@ export const Game = ({
     else return "tile";
   };
 
+  const handleClick = (newDirection) => {
+    if (newDirection === "up" && direction.current !== "down")
+      direction.current = "up";
+    if (newDirection === "down" && direction.current !== "up")
+      direction.current = "down";
+    if (newDirection === "left" && direction.current !== "right")
+      direction.current = "left";
+    if (newDirection === "right" && direction.current !== "left")
+      direction.current = "right";
+  };
+
   const food = useMemo(() => {
     const spawnRandom = () => ({
       x: Math.floor(Math.random() * width),
@@ -51,6 +62,10 @@ export const Game = ({
 
     const tryFood = () => {
       try {
+        if (snake.length === width * height - 1) {
+          setIsWon(true);
+          return null;
+        }
         const attempt = spawnRandom();
         if (snake.some((seg) => seg.x === attempt.x && seg.y === attempt.y))
           tryFood();
@@ -151,18 +166,58 @@ export const Game = ({
   }, [isOver, score, isWon]);
 
   return (
-    <code
-      ref={boardRef}
-      key="board"
-      style={{ "--size": width > height ? width / 11 : height / 11 }}
-    >
-      {initialBoard.map((r, i) => (
-        <div className="row" key={i}>
-          {r.map((t, j) => (
-            <div key={`${i}${j}`} className={assignTile(i, j)} />
-          ))}
+    <>
+      <div>
+        <div className="top" onClick={() => handleClick("up")}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="1em"
+            viewBox="0 0 448 512"
+          >
+            <path d="M448 96c0-35.3-28.7-64-64-64L64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-320zM320 256c0 6.7-2.8 13-7.7 17.6l-112 104c-7 6.5-17.2 8.2-25.9 4.4s-14.4-12.5-14.4-22l0-208c0-9.5 5.7-18.2 14.4-22s18.9-2.1 25.9 4.4l112 104c4.9 4.5 7.7 10.9 7.7 17.6z" />
+          </svg>
         </div>
-      ))}
-    </code>
+        <div className="left" onClick={() => handleClick("left")}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="1em"
+            viewBox="0 0 448 512"
+          >
+            <path d="M448 96c0-35.3-28.7-64-64-64L64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-320zM320 256c0 6.7-2.8 13-7.7 17.6l-112 104c-7 6.5-17.2 8.2-25.9 4.4s-14.4-12.5-14.4-22l0-208c0-9.5 5.7-18.2 14.4-22s18.9-2.1 25.9 4.4l112 104c4.9 4.5 7.7 10.9 7.7 17.6z" />
+          </svg>
+        </div>
+        <div className="right" onClick={() => handleClick("right")}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="1em"
+            viewBox="0 0 448 512"
+          >
+            <path d="M448 96c0-35.3-28.7-64-64-64L64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-320zM320 256c0 6.7-2.8 13-7.7 17.6l-112 104c-7 6.5-17.2 8.2-25.9 4.4s-14.4-12.5-14.4-22l0-208c0-9.5 5.7-18.2 14.4-22s18.9-2.1 25.9 4.4l112 104c4.9 4.5 7.7 10.9 7.7 17.6z" />
+          </svg>
+        </div>
+        <div className="bottom" onClick={() => handleClick("down")}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="1em"
+            viewBox="0 0 448 512"
+          >
+            <path d="M448 96c0-35.3-28.7-64-64-64L64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-320zM320 256c0 6.7-2.8 13-7.7 17.6l-112 104c-7 6.5-17.2 8.2-25.9 4.4s-14.4-12.5-14.4-22l0-208c0-9.5 5.7-18.2 14.4-22s18.9-2.1 25.9 4.4l112 104c4.9 4.5 7.7 10.9 7.7 17.6z" />
+          </svg>
+        </div>
+      </div>
+      <code
+        ref={boardRef}
+        key="board"
+        style={{ "--size": width > height ? width / 11 : height / 11 }}
+      >
+        {initialBoard.map((r, i) => (
+          <div className="row" key={i}>
+            {r.map((t, j) => (
+              <div key={`${i}${j}`} className={assignTile(i, j)} />
+            ))}
+          </div>
+        ))}
+      </code>{" "}
+    </>
   );
 };
