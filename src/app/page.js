@@ -1,9 +1,11 @@
-import { prisma } from "@/db";
+import { PrismaClient } from "@prisma/client";
 import { redirect } from "next/navigation";
 import "./login.scss";
 
 async function createUser(data) {
   "use server";
+
+  const prisma = new PrismaClient();
 
   const userName = data.get("userName")?.valueOf();
 
@@ -30,6 +32,8 @@ async function createUser(data) {
 
 async function chooseUser(data) {
   "use server";
+
+  const prisma = new PrismaClient();
 
   const userName = data.get("userName")?.valueOf();
 

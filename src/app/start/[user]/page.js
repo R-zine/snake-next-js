@@ -1,9 +1,11 @@
-import { prisma } from "@/db";
+import { PrismaClient } from "@prisma/client";
 import Link from "next/link";
 import "./styles.scss";
 
 export async function getUsers(id) {
   "use server";
+
+  const prisma = new PrismaClient();
 
   const user = await prisma.user.findFirst({
     where: {
