@@ -1,6 +1,6 @@
 import { prisma } from "@/db";
 import { redirect } from "next/navigation";
-import "./login.scss";
+import "./styles.scss";
 
 async function createUser(data) {
   "use server";
@@ -47,10 +47,12 @@ async function chooseUser(data) {
   }
 }
 
-export default function Index() {
+export default function Page({ params }) {
+  const { user } = params;
+
   return (
     <section>
-      <h2>Login</h2>
+      <h2>User {user} doesn't exists in the database!</h2>
       <div>
         <h3>Create a new account:</h3>
         <form action={createUser} className="input">

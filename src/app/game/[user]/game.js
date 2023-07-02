@@ -235,7 +235,7 @@ export const Game = ({ id, speed, growth, highscore, width, height }) => {
             ))}
           </div>
         ))}
-      </code>{" "}
+      </code>
     </>
   );
 };
