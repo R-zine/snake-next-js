@@ -144,3 +144,15 @@ section {
     transform: scale(140%);
   }
 }
+
+.scores {
+  position: fixed;
+  top: 82vh;
+  width: 72vw;
+  left: 14vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5vw;
+  font-size: 1.5vh;
+}

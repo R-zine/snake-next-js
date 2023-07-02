@@ -24,7 +24,6 @@ export default async function Page({ params }) {
     <section>
       <Game
         id={userObject.id}
-        title={userObject.title}
         speed={userObject.speed}
         growth={userObject.fastGrower}
         highscore={userObject.highscore}
