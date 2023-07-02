@@ -52,7 +52,7 @@ export default function Page({ params }) {
 
   return (
     <section>
-      <h2>User {user} doesn't exists in the database!</h2>
+      <h2>User {user} doesn&apos;t exists in the database!</h2>
       <div>
         <h3>Create a new account:</h3>
         <form action={createUser} className="input">
