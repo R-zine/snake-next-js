@@ -23,7 +23,8 @@ async function createUser(data) {
       highscore: 0,
       speed: 1,
       fastGrower: false,
-      dark: false,
+      width: 30,
+      height: 30,
     },
   });
 }

@@ -21,7 +21,7 @@ export default async function Page({ params }) {
   const userObject = await getUsers(user);
 
   return (
-    <section>
+    <section className="game">
       <Game
         id={userObject.id}
         speed={userObject.speed}
