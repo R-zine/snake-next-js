@@ -1,12 +1,14 @@
 footer {
+  position: fixed;
+  top: calc(100vh - max(2vh, 20px));
   display: flex;
-  align-items: center;
+  align-items: start;
   justify-content: center;
   width: 100%;
-  height: 2vh;
+  min-height: max(2vh, 20px);
   border-top: 3px solid #231123;
   box-shadow: -2px 0 5px #82204a;
-  font-size: 0.8rem;
+  font-size: max(0.8rem, 14px);
   & span {
     margin-top: 4px;
   }
